@@ -1,0 +1,386 @@
+/* ==========================================================================
+   COMPONENTES
+   Piezas reutilizables: íconos, encabezado, menú, botones, etiquetas,
+   horario y botón flotante.
+   ========================================================================== */
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ---------- Encabezado ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: stretch;
+  height: var(--header-height);
+  padding-left: var(--gutter);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-right: auto;
+}
+
+/* El logo va dentro de un cuadro con borde, como el monograma de la referencia */
+.brand__mark {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1.5px solid var(--color-on-dark);
+}
+
+.brand__mark img {
+  width: auto;
+  height: 1.875rem;
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding-right: var(--space-2xl);
+}
+
+.site-nav__list {
+  display: flex;
+  gap: clamp(1.5rem, 0.5rem + 2.5vw, 4.5rem);
+}
+
+.site-nav__link {
+  position: relative;
+  padding-block: var(--space-xs);
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-nav);
+  text-transform: uppercase;
+  transition: color var(--transition);
+}
+
+.site-nav__link:hover,
+.site-nav__link[aria-current="true"] {
+  color: var(--color-accent);
+}
+
+.site-nav__instagram {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-on-dark);
+  font-size: var(--text-small);
+  transition: color var(--transition);
+}
+
+.site-nav__instagram .icon {
+  color: var(--color-accent);
+}
+
+.site-nav__instagram:hover {
+  color: #fff;
+}
+
+/* Bloque de color pegado al borde derecho (en la referencia es el carrito) */
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-width: var(--header-height);
+  padding-inline: var(--space-xl);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color var(--transition);
+}
+
+.header-cta:hover {
+  background: #ffd24a;
+}
+
+.header-cta:focus-visible {
+  outline-color: #fff;
+  outline-offset: -4px;
+}
+
+/* ---------- Menú móvil ---------- */
+
+.nav-toggle {
+  display: none;
+  position: relative;
+  width: var(--header-height);
+  color: #fff;
+}
+
+.nav-toggle__bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.375rem;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform var(--transition);
+}
+
+.nav-toggle__bar:first-child {
+  transform: translate(-50%, -5px);
+}
+
+.nav-toggle__bar:last-child {
+  transform: translate(-50%, 4px);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:first-child {
+  transform: translate(-50%, 0) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:last-child {
+  transform: translate(-50%, 0) rotate(-45deg);
+}
+
+@media (max-width: 60em) {
+  .site-nav__instagram {
+    display: none;
+  }
+}
+
+@media (max-width: 48em) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-lg);
+    padding: var(--space-md) var(--gutter) var(--space-xl);
+    background: var(--color-ink);
+    border-top: 1px solid var(--color-line-dark);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition), transform var(--transition), visibility 0s linear 200ms;
+  }
+
+  .nav-toggle[aria-expanded="true"] ~ .site-nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .site-nav__list {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .site-nav__list li {
+    border-bottom: 1px solid var(--color-line-dark);
+  }
+
+  .site-nav__link {
+    display: block;
+    padding-block: var(--space-md);
+    font-size: var(--text-small);
+  }
+
+  .site-nav__instagram {
+    display: inline-flex;
+  }
+
+  .header-cta {
+    padding-inline: var(--space-md);
+  }
+
+  .header-cta__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .brand__name {
+    font-size: 1.375rem;
+  }
+}
+
+/* ---------- Enlaces y botones ---------- */
+
+/* Enlace en mayúsculas con raya corta debajo (CTA del hero) */
+.underline-link {
+  display: inline-block;
+  position: relative;
+  padding-bottom: var(--space-xs);
+  font-size: var(--text-small);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.underline-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 60%;
+  height: 2px;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: width var(--transition);
+}
+
+.underline-link:hover::after {
+  width: 100%;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.875rem;
+  min-width: 10rem;
+  padding: 0.625rem 2rem;
+  border: 2px solid var(--color-ink);
+  color: var(--color-ink);
+  font-size: var(--text-small);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.btn-outline:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+.btn-solid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.875rem;
+  padding: 0.625rem 1.5rem;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-small);
+  font-weight: 500;
+  transition: background-color var(--transition);
+}
+
+.btn-solid:hover {
+  background: #ffd24a;
+}
+
+/* ---------- Etiqueta (las "Recién llegado" de la referencia) ---------- */
+
+.tag {
+  display: inline-block;
+  padding: 0.125rem 0.625rem;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-label);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+/* ---------- Horario ---------- */
+
+/* Días arriba y hora abajo: cabe en la columna angosta del pie */
+.hours {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.hours__row {
+  display: grid;
+  gap: 0.125rem;
+}
+
+.hours dt {
+  white-space: nowrap;
+}
+
+.hours dd {
+  color: var(--color-on-dark);
+}
+
+.hours dd {
+  font-variant-numeric: tabular-nums;
+}
+
+.hours__row.is-today dt {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: #fff;
+}
+
+.hours__row.is-today dt::after {
+  content: "Hoy";
+  padding: 0 0.375rem;
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+/* ---------- Botón flotante de chat ---------- */
+
+.chat-fab {
+  position: fixed;
+  right: clamp(1rem, 1.5vw, 1.5rem);
+  bottom: 0;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-ink);
+  border: 1px solid var(--color-line-dark);
+  border-bottom: 0;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 -6px 24px -10px rgb(0 0 0 / 0.4);
+  transition: transform var(--transition), background-color var(--transition);
+}
+
+.chat-fab .icon {
+  color: var(--color-accent);
+}
+
+.chat-fab:hover {
+  background: var(--color-ink-deep);
+  transform: translateY(-3px);
+}
